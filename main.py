@@ -41,10 +41,14 @@ class MyMainWindow(QMainWindow):
         action_open_file = QAction("Ouvrir Fichier (.paf)", self)
         action_open_file.triggered.connect(self.open_file_dialog)
 
+        sauvegarder = QAction("Sauvegarder", self)
+        sauvegarder.triggered.connect(self.sav_file_name)
+
         action_quitter = QAction("Quitter", self)
         action_quitter.triggered.connect(self.close)
         
         menu.addAction(action_open_file)
+        menu.addAction(sauvegarder)
         menu.addAction(action_quitter)
 
         # Menu Affichage
@@ -58,6 +62,17 @@ class MyMainWindow(QMainWindow):
         action_fill.triggered.connect(self.remplissage)
 
         menu2.addAction(action_fill)
+
+    def sav_file_name(self):
+        """
+            Cette fonction ouvre une boîte de dialogue pour sauvegarder le fichier ou l'on peut choisir le nom du fichier et le chemin.
+        """
+        # Ouvrir la boîte de dialogue de sauvegarde
+        self.sav_file_name, _ = QFileDialog.getSaveFileName(self, "Sauvegarder Fichier (.paf)", "", "Fichiers .paf (*.paf);;Tous les fichiers (*)")
+
+        if self.sav_file_name:
+            # Si un fichier a été sélectionné, appelez la fonction save_file avec le chemin du fichier
+            save_file(self.sav_file_name)
 
     def open_file_dialog(self):
         options = QFileDialog.Options()

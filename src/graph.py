@@ -4,6 +4,34 @@ from matplotlib.path import Path
 import numpy as np
 import keyboard
 
+def save_file(file_name):
+    """
+        Fonction pour sauvegarder les données dans un fichier .paf.
+        Cette fonction permet de sauvegarder les données dans un fichier .paf.
+        Elle remplacera les None par 999999.00 pour éviter les erreurs lors de la lecture du fichier.
+        precondition: un fichier doit être ouvert
+        postcondition: les données sont sauvegardées dans un fichier .paf
+    """
+    # Vérifier si times est défini
+    if 'times' not in globals():
+        return
+
+    # Créer une liste de tuples à partir des données
+    zip_data_to_save = list(zip(times, data_col2, data_col3, data_col4, data_col5))
+
+    # Écrire les données dans le fichier
+    with open(file_name, 'w') as file:
+        for t, d2, d3, d4, d5 in zip_data_to_save:
+            if d2 is None:
+                d2 = 999999.00
+            if d3 is None:
+                d3 = 999999.00
+            if d4 is None:
+                d4 = 999999.00
+            if d5 is None:
+                d5 = 999999.00
+            file.write(f'{t}\t{d2}\t{d3}\t{d4}\t{d5}\n')
+
 def load_file(file_name):
     global index, times, zip_data_col2, zip_data_col3, zip_data_col4, zip_data_col5, data_col2, data_col3, data_col4, data_col5, times, undo_data_col2, undo_data_col3, undo_data_col4, undo_data_col5
 
