@@ -82,8 +82,8 @@ class MyMainWindow(QMainWindow):
         self.file_name, _ = QFileDialog.getOpenFileName(self, "Ouvrir Fichier (.paf)", "", "Fichiers .paf (*.paf);;Tous les fichiers (*)", options=options)
 
         if self.file_name:
-            print(self.file_name)
             # Si un fichier a été sélectionné, appelez la fonction load_file avec le chemin du fichier
+            self.setWindowTitle("Magne EOST - " + self.file_name)
             load_file(self.file_name)
 
             graph1()
