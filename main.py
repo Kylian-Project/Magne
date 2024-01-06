@@ -42,6 +42,7 @@ class MyMainWindow(QMainWindow):
         action_open_file.triggered.connect(self.open_file_dialog)
 
         sauvegarder = QAction("Sauvegarder", self)
+        sauvegarder.setShortcut('Ctrl+S')  # Définir le raccourci clavier pour l'action de sauvegarde
         sauvegarder.triggered.connect(self.sav_file_name)
 
         action_quitter = QAction("Quitter", self)
@@ -67,9 +68,12 @@ class MyMainWindow(QMainWindow):
         if not saved_or_not() and self.file_name:  # Supposons que self.file_saved est un booléen qui indique si le fichier a été sauvegardé ou non
             reply = QMessageBox.question(self, 'Message',
                                          "Attention, vous n'avez pas sauvegardé. Êtes-vous sûr de vouloir quitter ?", QMessageBox.Yes |
-                                         QMessageBox.No, QMessageBox.No)
+                                         QMessageBox.No | QMessageBox.Save, QMessageBox.No)
 
             if reply == QMessageBox.Yes:
+                event.accept()
+            elif reply == QMessageBox.Save:
+                self.sav_file_name()
                 event.accept()
             else:
                 event.ignore()
@@ -80,12 +84,13 @@ class MyMainWindow(QMainWindow):
         """
             Cette fonction ouvre une boîte de dialogue pour sauvegarder le fichier ou l'on peut choisir le nom du fichier et le chemin.
         """
-        # Ouvrir la boîte de dialogue de sauvegarde
-        self.sav_file_name, _ = QFileDialog.getSaveFileName(self, "Sauvegarder Fichier (.paf)", "", "Fichiers .paf (*.paf);;Tous les fichiers (*)")
+        if self.file_name:
+            # Ouvrir la boîte de dialogue de sauvegarde
+            self.sav_file_name, _ = QFileDialog.getSaveFileName(self, "Sauvegarder Fichier (.paf)", "", "Fichiers .paf (*.paf);;Tous les fichiers (*)")
 
-        if self.sav_file_name:
-            # Si un fichier a été sélectionné, appelez la fonction save_file avec le chemin du fichier
-            save_file(self.sav_file_name)
+            if self.sav_file_name:
+                # Si un fichier a été sélectionné, appelez la fonction save_file avec le chemin du fichier
+                save_file(self.sav_file_name)
 
     def open_file_dialog(self):
         options = QFileDialog.Options()
