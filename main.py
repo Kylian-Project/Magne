@@ -46,6 +46,7 @@ class MyMainWindow(QMainWindow):
         sauvegarder.triggered.connect(self.sav_file_name)
 
         action_quitter = QAction("Quitter", self)
+        action_quitter.setShortcut('Ctrl+Q')
         action_quitter.triggered.connect(self.close)
         
         menu.addAction(action_open_file)
