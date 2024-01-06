@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QMenuBar, QAction, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QMenuBar, QAction, QFileDialog, QMessageBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 from src.graph import *   # Importez fichier graph.py
@@ -62,6 +62,19 @@ class MyMainWindow(QMainWindow):
         action_fill.triggered.connect(self.remplissage)
 
         menu2.addAction(action_fill)
+
+    def closeEvent(self, event):
+        if not saved_or_not() and self.file_name:  # Supposons que self.file_saved est un booléen qui indique si le fichier a été sauvegardé ou non
+            reply = QMessageBox.question(self, 'Message',
+                                         "Attention, vous n'avez pas sauvegardé. Êtes-vous sûr de vouloir quitter ?", QMessageBox.Yes |
+                                         QMessageBox.No, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                event.accept()
+            else:
+                event.ignore()
+        else:
+            event.accept()
 
     def sav_file_name(self):
         """

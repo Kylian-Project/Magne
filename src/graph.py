@@ -4,6 +4,18 @@ from matplotlib.path import Path
 import numpy as np
 import keyboard
 
+file_saved = True
+
+def saved_or_not():
+    """
+        Fonction pour savoir si le fichier a été sauvegardé.
+        Cette fonction permet de savoir si le fichier a été sauvegardé ou non.
+        precondition: un fichier doit être ouvert
+        postcondition: True si le fichier a été sauvegardé, False sinon
+    """
+    global file_saved
+    return file_saved
+
 def save_file(file_name):
     """
         Fonction pour sauvegarder les données dans un fichier .paf.
@@ -12,6 +24,7 @@ def save_file(file_name):
         precondition: un fichier doit être ouvert
         postcondition: les données sont sauvegardées dans un fichier .paf
     """
+    global file_saved
     # Vérifier si times est défini
     if 'times' not in globals():
         return
@@ -21,6 +34,9 @@ def save_file(file_name):
 
     # Écrire les données dans le fichier
     with open(file_name, 'w') as file:
+
+        file_saved = True
+
         for t, d2, d3, d4, d5 in zip_data_to_save:
             if d2 is None:
                 d2 = 999999.00
@@ -328,12 +344,13 @@ def on_close(event):
         precondition: le graphique en plein écran doit être fermé
         postcondition: les données du graphique principal sont mises à jour
     """
-    global index, undo_data_col2, undo_data_col3, undo_data_col4, undo_data_col5, zip_data_col2, zip_data_col3, zip_data_col4, zip_data_col5, data_col2, data_col3, data_col4, data_col5
+    global file_saved, index, undo_data_col2, undo_data_col3, undo_data_col4, undo_data_col5, zip_data_col2, zip_data_col3, zip_data_col4, zip_data_col5, data_col2, data_col3, data_col4, data_col5
     
     undo_data = undo_data_col2 + undo_data_col3 + undo_data_col4 + undo_data_col5
     if not undo_data:
         return
     
+    file_saved = False
     # Créer un ensemble des premiers éléments de chaque tuple
     liste_tuples_first = set(t[0] for sublist in undo_data for t in sublist)
 
