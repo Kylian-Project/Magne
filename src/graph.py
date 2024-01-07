@@ -112,8 +112,8 @@ def graph1():
     axs[0].plot([t for i, t in enumerate(times) if data_col2[i] is not None], 
                 [d for d in data_col2 if d is not None], 'k-', linewidth=1)  # Relier les points
     axs[0].set_xlabel('Temps (secondes)')
-    axs[0].set_ylabel('Colonne 2')
-    axs[0].set_title('Graphique de la colonne 2')
+    axs[0].set_ylabel('')
+    axs[0].set_title('')
     plt.draw()
 
 # Graphique pour la colonne 3
@@ -124,8 +124,8 @@ def graph2():
     axs[1].plot([t for i, t in enumerate(times) if data_col3[i] is not None], 
                 [d for d in data_col3 if d is not None], 'k-', linewidth=1)  # Relier les points
     axs[1].set_xlabel('Temps (secondes)')
-    axs[1].set_ylabel('Colonne 3')
-    axs[1].set_title('Graphique de la colonne 3')
+    axs[1].set_ylabel('')
+    axs[1].set_title('')
     plt.draw()
 
 # Graphique pour la colonne 4
@@ -136,8 +136,8 @@ def graph3():
     axs[2].plot([t for i, t in enumerate(times) if data_col4[i] is not None], 
                 [d for d in data_col4 if d is not None], 'k-', linewidth=1)  # Relier les points
     axs[2].set_xlabel('Temps (secondes)')
-    axs[2].set_ylabel('Colonne 4')
-    axs[2].set_title('Graphique de la colonne 4')
+    axs[2].set_ylabel('')
+    axs[2].set_title('')
     plt.draw()
 
 # Graphique pour la colonne 5
@@ -148,8 +148,8 @@ def graph4():
     axs[3].plot([t for i, t in enumerate(times) if data_col5[i] is not None], 
                 [d for d in data_col5 if d is not None], 'k-', linewidth=1)  # Relier les points
     axs[3].set_xlabel('Temps (secondes)')
-    axs[3].set_ylabel('Colonne 5')
-    axs[3].set_title('Graphique de la colonne 5')
+    axs[3].set_ylabel('')
+    axs[3].set_title('')
     plt.draw()
 
 # Dernier graphique  qui fait la racine carrée de graph 1 au carré + graph 2 au carré + graph 3 au carré - graph 4
